@@ -92,9 +92,8 @@ export default function TRMApp() {
     const score = calcScore(ratings);
     const prompt = `You are the AI risk engine for Revolution INTELL's TRM platform for cross-border commodity transactions including gold, copper, and critical minerals. Analyze this counterparty. Do not use dashes. Write as a seasoned commodity transaction risk analyst.\nCOUNTERPARTY: ${form.name}\nJURISDICTION: ${form.country || "Not specified"}\nTRANSACTION TYPE: ${form.txType || "Not specified"}\nTRANSACTION VALUE: ${form.txValue || "Not disclosed"}\nRELATIONSHIP SOURCE: ${form.relSource || "Not specified"}\nIdentity Verification: ${ratings.identity}/5\nDocumentation Integrity: ${ratings.documentation}/5\nTransaction History: ${ratings.history}/5\nSource Credibility: ${ratings.source}/5\nAdvance Fee Risk: ${ratings.advancefee}/5 (5=clean)\nJurisdictional Compliance: ${ratings.jurisdiction}/5\nCOMPOSITE SCORE: ${score}/100\nNOTES: ${form.notes || "None"}\nRespond ONLY with valid JSON no markdown no backticks: {"strategic_assessment":"3-4 sentences on trust profile","flags":[{"level":"red","text":"observation"},{"level":"yellow","text":"observation"},{"level":"green","text":"observation"}],"recommendation":"2-3 sentences on whether to proceed and next steps"}`;
     try {
-      const response = await fetch("https://api.anthropic.com/v1/messages", {
+      const response = await fetch("/api/analyze", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "anthropic-dangerous-allow-browser": "true" },
         body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] })
       });
       const data = await response.json();
