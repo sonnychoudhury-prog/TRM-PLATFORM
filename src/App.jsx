@@ -94,7 +94,7 @@ export default function TRMApp() {
     try {
       const response = await fetch("/api/analyze", {
         method: "POST",
-        body: JSON.stringify({ model: "claude-sonnet-4-5-20251001", max_tokens: 1000, messages: [{ role: "user", content: prompt }] })
+        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 1000, messages: [{ role: "user", content: prompt }] })
       });
       const data = await response.json();
       if (data.error) throw new Error(data.error.message);
