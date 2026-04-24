@@ -12,105 +12,43 @@ const DANGER = "#E05252";
 
 const SOURCES = ["Email", "WhatsApp", "Call Notes", "Meeting Notes", "Document", "Other"];
 
-export default function Co
-cat > src/Correspondence.jsx << 'EOF'
-import { useState, useEffect } from "react";
-import { supabase } from "./supabase";
-
-const CYAN = "#109DCE";
-const BG = "#090C11";
-const BG2 = "#0D1219";
-const SILVER = "#D2DDE1";
-const SILVER_DIM = "#8A9BA3";
-const SAFE = "#32C87A";
-const WARN = "#E0A832";
-const DANGER = "#E05252";
-
-const SOURCES = ["Email", "WhatsApp", "Call Notes", "Meeting Notes", "Document", "Other"];
-
 export default function Correspondence({ counterpartyId, counterpartyName, userId }) {
   const [logs, setLogs] = useState([]);
   const [content, setContent] = useState("");
   const [source, setSource] = useState("Email");
-  const [loading, setLoading] = useState(false);
   const [analyzing, setAnalyzing] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => { loadLogs(); }, [counterpartyId]);
 
   async function loadLogs() {
-    const { data } = await supabase
-      .from("correspondence")
-      .select("*")
-      .eq("counterparty_id", counterpartyId)
-      .order("created_at", { ascending: false });
+    const { data } = await supabase.from("correspondence").select("*").eq("counterparty_id", counterpartyId).order("created_at", { ascending: false });
     if (data) setLogs(data);
   }
 
   async function analyzeAndSave() {
     if (!content.trim()) { setError("Please paste in some correspondence first."); return; }
     setError(""); setAnalyzing(true);
-
-    const prompt = `You are the AI risk engine for Revolution INTELL's TRM platform. Analyze this correspondence from a counterparty named "${counterpartyName}" for risk signals in cross-border commodity transactions.
-
-SOURCE: ${source}
-CONTENT:
-${content}
-
-Look for: advance fee requests, urgency tactics, inconsistencies, pressure patterns, vague documentation references, unrealistic promises, AML red flags, identity inconsistencies.
-
-Respond ONLY with valid JSON no markdown no backticks:
-{
-  "analysis": "2-3 sentence summary of what this correspondence reveals about the counterparty",
-  "flags": [
-    {"level": "red", "text": "specific observation"},
-    {"level": "yellow", "text": "specific observation"},
-    {"level": "green", "text": "specific observation"}
-  ],
-  "risk_signal": "low|medium|high"
-}`;
-
+    const prompt = `You are the AI risk engine for Revolution INTELL's TRM platform. Analyze this correspondence from counterparty "${counterpartyName}" for risk signals in cross-border commodity transactions. SOURCE: ${source}\nCONTENT:\n${content}\n\nLook for: advance fee requests, urgency tactics, inconsistencies, pressure patterns, vague documentation references, unrealistic promises, AML red flags. Do not use dashes.\n\nRespond ONLY with valid JSON no markdown no backticks: {"analysis":"2-3 sentence summary of what this correspondence reveals","flags":[{"level":"red","text":"observation"},{"level":"yellow","text":"observation"},{"level":"green","text":"observation"}],"risk_signal":"low|medium|high"}`;
     try {
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 800,
-          messages: [{ role: "user", content: prompt }]
-        })
+        body: JSON.stringify({ model: "claude-sonnet-4-6", max_tokens: 800, messages: [{ role: "user", content: prompt }] })
       });
       const data = await response.json();
       const parsed = JSON.parse(data.content[0].text.replace(/```json|```/g, "").trim());
-
       await supabase.from("correspondence").insert({
-        counterparty_id: counterpartyId,
-        user_id: userId,
-        source,
-        content,
-        ai_analysis: parsed.analysis,
-        flags: JSON.stringify(parsed.flags)
+        counterparty_id: counterpartyId, user_id: userId, source, content,
+        ai_analysis: parsed.analysis, flags: JSON.stringify(parsed.flags)
       });
-
-      setContent("");
-      loadLogs();
-    } catch (e) {
-      setError("Analysis failed: " + e.message);
-    }
+      setContent(""); loadLogs();
+    } catch (e) { setError("Analysis failed: " + e.message); }
     setAnalyzing(false);
   }
 
-  function flagColor(level) {
-    if (level === "red") return DANGER;
-    if (level === "yellow") return WARN;
-    return SAFE;
-  }
-
-  function flagLabel(level) {
-    if (level === "red") return "RISK";
-    if (level === "yellow") return "CAUTION";
-    return "CLEAR";
-  }
+  function flagColor(level) { if (level === "red") return DANGER; if (level === "yellow") return WARN; return SAFE; }
+  function flagLabel(level) { if (level === "red") return "RISK"; if (level === "yellow") return "CAUTION"; return "CLEAR"; }
 
   const s = {
     wrap: { marginTop: 32 },
@@ -134,12 +72,11 @@ Respond ONLY with valid JSON no markdown no backticks:
 
   return (
     <div style={s.wrap}>
-      <div style={s.sectionLabel}>// 04 — CORRESPONDENCE LOG</div>
-
+      <div style={s.sectionLabel}>// 04 - CORRESPONDENCE LOG</div>
       <div style={s.inputBlock}>
         <label style={s.label}>Source</label>
         <select style={s.select} value={source} onChange={e => setSource(e.target.value)}>
-          {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
+          {SOURCES.map(src => <option key={src} value={src}>{src}</option>)}
         </select>
         <label style={s.label}>Paste Correspondence</label>
         <textarea style={s.textarea} value={content} onChange={e => setContent(e.target.value)} placeholder="Paste email, WhatsApp message, call notes, or any communication from this counterparty here..."/>
@@ -148,12 +85,10 @@ Respond ONLY with valid JSON no markdown no backticks:
           {analyzing ? "ANALYZING..." : "ANALYZE & SAVE"}
         </button>
       </div>
-
       {logs.length === 0 && <div style={s.emptyMsg}>NO CORRESPONDENCE LOGGED YET</div>}
-
       {logs.map(log => {
         let flags = [];
-        try { flags = JSON.parse(log.flags || "[]"); } catch (e) {}
+        try { flags = JSON.parse(log.flags || "[]"); } catch(e) {}
         return (
           <div key={log.id} style={s.logCard}>
             <div style={s.logHeader}>
