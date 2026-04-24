@@ -74,7 +74,7 @@ export default function TRMApp() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => { setSession(session); if (session) loadProfile(session.user.id); });
-    supabase.auth.onAuthStateChange((_event, session) => { setSession(session); if (session) loadProfile(session.user.id); });
+    supabase.auth.onAuthStateChange((_event, session) => { setSession(session); if (session) loadProfile(session.user.id); else setProfile(null); });
   }, []);
 
   async function loadProfile(userId) {
