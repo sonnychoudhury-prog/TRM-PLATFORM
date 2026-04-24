@@ -4,6 +4,7 @@ import Auth from "./Auth";
 import Admin from "./Admin";
 import Correspondence from "./Correspondence";
 import Workflow from "./Workflow";
+import CompanySettings from "./CompanySettings";
 
 const CYAN = "#109DCE";
 const CYAN_BRIGHT = "#19A8D5";
@@ -69,6 +70,7 @@ export default function TRMApp() {
   const [loadingMsg, setLoadingMsg] = useState("INITIALIZING ANALYSIS...");
   const [counterparties, setCounterparties] = useState([]);
   const [activeCP, setActiveCP] = useState(null);
+  const [companySettings, setCompanySettings] = useState(null);
 
   const loadingSteps = ["INITIALIZING ANALYSIS...","SCORING TRUST DIMENSIONS...","RUNNING COUNTERPARTY ASSESSMENT...","GENERATING RISK REPORT..."];
 
@@ -150,6 +152,7 @@ export default function TRMApp() {
 
   if (!session) return <Auth />;
   if (view === "admin" && profile?.role === "admin") return <Admin onBack={() => setView("list")} />;
+  if (view === "settings") return <CompanySettings userId={session.user.id} onSave={(data) => { if (data) setCompanySettings(data); setView("list"); }} />;
 
   const s = {
     wrap: { background: BG, minHeight: "100vh", fontFamily: "'Exo 2', sans-serif", color: SILVER, position: "relative", overflow: "hidden" },
@@ -199,6 +202,7 @@ export default function TRMApp() {
           <div style={s.headerRight}>
             <span style={s.userEmail}>{session.user.email}</span>
             {profile?.role === "admin" && <button style={s.headerBtn(CYAN)} onClick={() => setView("admin")}>ADMIN</button>}
+            <button style={s.headerBtn()} onClick={() => setView("settings")}>SETTINGS</button>
             {view === "assessment" && <button style={s.headerBtn()} onClick={() => { setView("list"); reset(); }}>ALL COUNTERPARTIES</button>}
             <button style={s.headerBtn("rgba(224,82,82,0.6)")} onClick={signOut}>SIGN OUT</button>
           </div>
