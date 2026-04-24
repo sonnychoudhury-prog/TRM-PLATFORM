@@ -78,6 +78,7 @@ export default function TRMApp() {
   }, []);
 
   async function loadProfile(userId) {
+    await supabase.auth.refreshSession();
     const { data } = await supabase.from("profiles").select("*").eq("id", userId).single();
     if (data) setProfile(data);
     loadCounterparties(userId);
