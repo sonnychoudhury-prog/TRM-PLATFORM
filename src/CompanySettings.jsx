@@ -73,105 +73,95 @@ export default function CompanySettings({ userId, onSave }) {
     setSaving(false);
   }
 
-  const s = {
-    wrap: { background: BG, minHeight: "100vh", fontFamily: "'Exo 2', sans-serif", color: SILVER },
-    inner: { maxWidth: 740, margin: "0 auto", padding: "0 24px 80px" },
-    header: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "24px 0 18px", borderBottom: "1px solid rgba(16,157,206,0.25)", marginBottom: 36 },
-    logo: { fontFamily: "'Rajdhani', sans-serif", fontSize: 20, fontWeight: 700, color: CYAN_BRIGHT, letterSpacing: "0.12em" },
-    logoSub: { fontFamily: "'Share Tech Mono', monospace", fontSize: 9, color: SILVER_DIM, letterSpacing: "0.2em", marginTop: 2 },
-    sectionLabel: { fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 6, marginTop: 28 },
-    formLabel: { display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7, marginTop: 14 },
-    input: { width: "100%", background: BG2, border: "1px solid rgba(16,157,206,0.25)", color: SILVER, fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" },
-    textarea: { width: "100%", background: BG2, border: "1px solid rgba(16,157,206,0.25)", color: SILVER, fontFamily: "'Exo 2', sans-serif", fontSize: 13, padding: "11px 14px", minHeight: 80, resize: "vertical", outline: "none", boxSizing: "border-box", fontWeight: 300 },
-    row: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 },
-    logoBox: { background: BG2, border: "1px solid rgba(16,157,206,0.22)", padding: 20, display: "flex", alignItems: "center", gap: 20, marginTop: 8 },
-    logoImg: { width: 80, height: 80, objectFit: "contain", background: "#fff", padding: 4 },
-    logoPlaceholder: { width: 80, height: 80, background: "rgba(16,157,206,0.05)", border: "1px dashed rgba(16,157,206,0.3)", display: "flex", alignItems: "center", justifyContent: "center" },
-    logoPlaceholderText: { fontFamily: "'Share Tech Mono', monospace", fontSize: 8, color: SILVER_DIM, letterSpacing: "0.1em", textAlign: "center" },
-    fileInput: { display: "none" },
-    uploadBtn: { padding: "8px 18px", background: "transparent", border: "1px solid rgba(16,157,206,0.3)", color: CYAN, fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.15em", cursor: "pointer" },
-    commodityGrid: { display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 },
-    commodityChip: (selected) => ({ padding: "6px 14px", background: selected ? "rgba(16,157,206,0.15)" : "transparent", border: "1px solid " + (selected ? CYAN : "rgba(210,221,225,0.15)"), color: selected ? CYAN : SILVER_DIM, fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.1em", cursor: "pointer" }),
-    saveBtn: { width: "100%", padding: 16, background: "transparent", border: "1px solid " + CYAN, color: CYAN, fontFamily: "'Rajdhani', sans-serif", fontSize: 15, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", marginTop: 28 },
-    message: { fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: SAVE, letterSpacing: "0.1em", marginTop: 12, textAlign: "center" },
-    error: { fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: DANGER, letterSpacing: "0.1em", marginTop: 12 },
-    backBtn: { padding: "7px 16px", background: "transparent", border: "1px solid rgba(16,157,206,0.3)", color: CYAN, fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.15em", cursor: "pointer" },
-  };
-
   return (
-    <div style={s.wrap}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@200;300;400;600&display=swap');*{box-sizing:border-box}input::placeholder{color:#8A9BA3;opacity:0.5}textarea::placeholder{color:#8A9BA3;opacity:0.5}`}</style>
-      <div style={s.inner}>
-        <div style={s.header}>
+    <div style={{ background: "#090C11", minHeight: "100vh", fontFamily: "'Exo 2', sans-serif", color: "#D2DDE1" }}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap');*{box-sizing:border-box}`}</style>
+      <div style={{ maxWidth: 740, margin: "0 auto", padding: "0 24px 80px" }}>
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "24px 0 18px", borderBottom: "1px solid rgba(16,157,206,0.25)", marginBottom: 36 }}>
           <div>
-            <div style={s.logo}>REVOLUTION INTELL</div>
-            <div style={s.logoSub}>TRM // COMPANY SETTINGS</div>
+            <div style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: 20, fontWeight: 700, color: "#19A8D5", letterSpacing: "0.12em" }}>REVOLUTION INTELL</div>
+            <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 9, color: "#8A9BA3", letterSpacing: "0.2em", marginTop: 2 }}>TRM // COMPANY SETTINGS</div>
           </div>
-          {onSave && <button style={s.backBtn} onClick={() => onSave(null)}>BACK TO TRM</button>}
+          <button style={{ padding: "8px 18px", background: "transparent", border: "1px solid rgba(16,157,206,0.3)", color: CYAN, fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.15em", cursor: "pointer" }} onClick={() => onSave && onSave(null)}>BACK TO TRM</button>
         </div>
 
-        <div style={s.sectionLabel}>// COMPANY BRANDING</div>
-        <div style={s.logoBox}>
-          {logoPreview ? <img src={logoPreview} style={s.logoImg} alt="Company logo"/> : <div style={s.logoPlaceholder}><div style={s.logoPlaceholderText}>NO LOGO<br/>UPLOADED</div></div>}
+        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 16, marginTop: 8 }}>// COMPANY BRANDING</div>
+
+        <div style={{ background: "#0D1219", border: "1px solid rgba(16,157,206,0.22)", padding: 20, display: "flex", alignItems: "center", gap: 20, marginBottom: 8 }}>
+          {logoPreview
+            ? <img src={logoPreview} style={{ width: 80, height: 80, objectFit: "contain", background: "#fff", padding: 4 }} alt="Logo"/>
+            : <div style={{ width: 80, height: 80, background: "rgba(16,157,206,0.05)", border: "1px dashed rgba(16,157,206,0.3)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 8, color: "#8A9BA3", textAlign: "center" }}>NO LOGO</span>
+              </div>
+          }
           <div>
-            <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: SILVER_DIM, letterSpacing: "0.1em", marginBottom: 10 }}>Upload your company logo. PNG or SVG recommended.</div>
-            <input type="file" accept="image/*" style={s.fileInput} id="logo-upload" onChange={handleLogoChange}/>
-            <label htmlFor="logo-upload" style={s.uploadBtn}>CHOOSE FILE</label>
+            <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: "#8A9BA3", letterSpacing: "0.1em", marginBottom: 10 }}>Upload your company logo. PNG or SVG recommended.</div>
+            <input type="file" accept="image/*" style={{ display: "none" }} id="logo-upload" onChange={handleLogoChange}/>
+            <label htmlFor="logo-upload" style={{ padding: "8px 18px", background: "transparent", border: "1px solid rgba(16,157,206,0.3)", color: CYAN, fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.15em", cursor: "pointer" }}>CHOOSE FILE</label>
             {logoFile && <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 9, color: SAFE, marginTop: 8, letterSpacing: "0.1em" }}>{logoFile.name}</div>}
           </div>
         </div>
 
-        <div style={s.sectionLabel}>// COMPANY INFORMATION</div>
-        <label style={s.formLabel}>Company Name</label>
-        <input style={s.input} value={settings.company_name} onChange={e => setField("company_name", e.target.value)} placeholder="e.g. Muanda Global LLC"/>
-        <div style={s.row}>
+        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 12, marginTop: 28 }}>// COMPANY INFORMATION</div>
+
+        <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Company Name</label>
+        <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box", marginBottom: 14 }} value={settings.company_name} onChange={e => setField("company_name", e.target.value)} placeholder="e.g. Muanda Global LLC"/>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
           <div>
-            <label style={s.formLabel}>Country</label>
-            <input style={s.input} value={settings.company_country} onChange={e => setField("company_country", e.target.value)} placeholder="e.g. Democratic Republic of Congo"/>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Country</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.company_country} onChange={e => setField("company_country", e.target.value)} placeholder="e.g. DRC"/>
           </div>
           <div>
-            <label style={s.formLabel}>Registration Number</label>
-            <input style={s.input} value={settings.company_registration} onChange={e => setField("company_registration", e.target.value)} placeholder="Company registration or tax ID"/>
-          </div>
-        </div>
-        <label style={s.formLabel}>Company Address</label>
-        <textarea style={s.textarea} value={settings.company_address} onChange={e => setField("company_address", e.target.value)} placeholder="Full registered address"/>
-        <div style={s.row}>
-          <div>
-            <label style={s.formLabel}>Phone</label>
-            <input style={s.input} value={settings.phone} onChange={e => setField("phone", e.target.value)} placeholder="+1 (000) 000-0000"/>
-          </div>
-          <div>
-            <label style={s.formLabel}>Website</label>
-            <input style={s.input} value={settings.website} onChange={e => setField("website", e.target.value)} placeholder="www.company.com"/>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Registration Number</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.company_registration} onChange={e => setField("company_registration", e.target.value)} placeholder="Registration or tax ID"/>
           </div>
         </div>
 
-        <div style={s.sectionLabel}>// AUTHORIZED SIGNATORY</div>
-        <div style={s.row}>
+        <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Company Address</label>
+        <textarea style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 13, padding: "11px 14px", minHeight: 80, resize: "vertical", outline: "none", boxSizing: "border-box", fontWeight: 300, marginBottom: 14 }} value={settings.company_address} onChange={e => setField("company_address", e.target.value)} placeholder="Full registered address"/>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
           <div>
-            <label style={s.formLabel}>Signatory Full Name</label>
-            <input style={s.input} value={settings.signatory_name} onChange={e => setField("signatory_name", e.target.value)} placeholder="e.g. Patrick Lendo"/>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Phone</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.phone} onChange={e => setField("phone", e.target.value)} placeholder="+1 (000) 000 0000"/>
           </div>
           <div>
-            <label style={s.formLabel}>Title</label>
-            <input style={s.input} value={settings.signatory_title} onChange={e => setField("signatory_title", e.target.value)} placeholder="e.g. Managing Director"/>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Website</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.website} onChange={e => setField("website", e.target.value)} placeholder="www.company.com"/>
           </div>
         </div>
-        <label style={s.formLabel}>Signatory Email</label>
-        <input style={s.input} value={settings.signatory_email} onChange={e => setField("signatory_email", e.target.value)} placeholder="signatory@company.com"/>
 
-        <div style={s.sectionLabel}>// PRIMARY COMMODITIES</div>
-        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 9, color: SILVER_DIM, letterSpacing: "0.1em", marginBottom: 8 }}>Select all commodities your company works with.</div>
-        <div style={s.commodityGrid}>
+        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 12, marginTop: 28 }}>// AUTHORIZED SIGNATORY</div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 14 }}>
+          <div>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Signatory Full Name</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.signatory_name} onChange={e => setField("signatory_name", e.target.value)} placeholder="e.g. Patrick Lendo"/>
+          </div>
+          <div>
+            <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Title</label>
+            <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box" }} value={settings.signatory_title} onChange={e => setField("signatory_title", e.target.value)} placeholder="e.g. Managing Director"/>
+          </div>
+        </div>
+
+        <label style={{ display: "block", fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 7 }}>Signatory Email</label>
+        <input style={{ width: "100%", background: "#0D1219", border: "1px solid rgba(16,157,206,0.25)", color: "#D2DDE1", fontFamily: "'Exo 2', sans-serif", fontSize: 14, padding: "11px 14px", outline: "none", boxSizing: "border-box", marginBottom: 28 }} value={settings.signatory_email} onChange={e => setField("signatory_email", e.target.value)} placeholder="signatory@company.com"/>
+
+        <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: CYAN, letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: 12 }}>// PRIMARY COMMODITIES</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 28 }}>
           {COMMODITY_OPTIONS.map(c => (
-            <button key={c} style={s.commodityChip((settings.primary_commodities || []).includes(c))} onClick={() => toggleCommodity(c)}>{c}</button>
+            <button key={c} onClick={() => toggleCommodity(c)} style={{ padding: "6px 14px", background: (settings.primary_commodities || []).includes(c) ? "rgba(16,157,206,0.15)" : "transparent", border: "1px solid " + ((settings.primary_commodities || []).includes(c) ? CYAN : "rgba(210,221,225,0.15)"), color: (settings.primary_commodities || []).includes(c) ? CYAN : "#8A9BA3", fontFamily: "'Share Tech Mono', monospace", fontSize: 9, letterSpacing: "0.1em", cursor: "pointer" }}>{c}</button>
           ))}
         </div>
 
-        {error && <div style={s.error}>{error}</div>}
-        {message && <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: SAFE, letterSpacing: "0.1em", marginTop: 12, textAlign: "center" }}>{message}</div>}
-        <button style={s.saveBtn} onClick={save} disabled={saving}>{saving ? "SAVING..." : "SAVE COMPANY SETTINGS"}</button>
+        {error && <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: DANGER, letterSpacing: "0.1em", marginBottom: 12 }}>{error}</div>}
+        {message && <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 10, color: SAFE, letterSpacing: "0.1em", marginBottom: 12, textAlign: "center" }}>{message}</div>}
+
+        <button style={{ width: "100%", padding: 16, background: "transparent", border: "1px solid " + CYAN, color: CYAN, fontFamily: "'Rajdhani', sans-serif", fontSize: 15, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer" }} onClick={save} disabled={saving}>
+          {saving ? "SAVING..." : "SAVE COMPANY SETTINGS"}
+        </button>
       </div>
     </div>
   );
