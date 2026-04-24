@@ -335,7 +335,7 @@ export default function TRMApp() {
                   <div style={s.analysisText}>{result.recommendation}</div>
                 </div>
                 {activeCP && <Correspondence counterpartyId={activeCP.id} counterpartyName={activeCP.name} userId={session.user.id} />}
-                {activeCP && <Workflow counterpartyId={activeCP.id} counterpartyName={activeCP.name} userId={session.user.id} />}
+                {activeCP && <Workflow counterpartyId={activeCP.id} counterpartyName={activeCP.name} userId={session.user.id} counterparty={activeCP} />}
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 20, borderTop: "1px solid rgba(16,157,206,0.2)", marginTop: 20 }}>
                   <div>
                     <div style={{ fontFamily: "'Share Tech Mono', monospace", fontSize: 9, color: SILVER_DIM }}>REVOLUTION INTELL // TRM PLATFORM v2.0</div>
